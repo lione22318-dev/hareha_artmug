@@ -228,7 +228,7 @@ footer small{font-size:11px}
 <script>
 // Artmug custom floating menu -> this iframe navigation
 window.addEventListener('message', function(event){
-  if(event.origin !== 'https://lione22318-dev.github.io') return;
+  if(event.source !== window.parent) return;
   const targetId = typeof event.data === 'string' ? event.data : event.data && event.data.target;
   if(!targetId) return;
   const target = document.getElementById(targetId);
