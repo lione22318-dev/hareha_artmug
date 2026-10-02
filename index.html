@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>일러스트 커미션 페이지</title>
+<style>
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+:root{--bg:#F8F9FD;--card:#FFFFFF;--text:#2D2D30;--muted:#495867;--accent:#577399;--line:#D2D2D4;--soft:#BDD5EA;--select:#577399;--r:10px;--max:1080px}
+*{box-sizing:border-box}
+*{font-weight:400 !important}
+.estimate strong,.opt-price,.base .price{font-weight:700 !important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Pretendard",sans-serif;line-height:1.6}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.page{max-width:var(--max);margin:auto;padding:0 20px 70px}
+section{scroll-margin-top:30px;margin-top:42px}
+.card,.hero,.process-shell,.pricebox,.portbox{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.section-card{background:transparent;border:0;border-radius:0;overflow:visible}
+
+/* MAIN VISUAL */
+.hero{overflow:hidden}
+.hero-img{min-height:256px;display:grid;place-items:center;position:relative;background:var(--accent);overflow:hidden}
+.hero-img:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 2px,transparent 2px 18px)}
+.hero-img:after{content:"";position:absolute;inset:0;background:rgba(94,86,83,.18)}
+.hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(38px,7vw,72px);font-weight:400;letter-spacing:.04em}
+.hero-intro{text-align:center;padding:28px}
+.hero-intro p{margin:0;color:var(--muted);font-size:15px}
+
+/* SECTION HEAD */
+.head{margin:0;padding:0 0 20px;background:transparent;border:0;text-align:center}
+.title{margin:0;font-size:30px;font-weight:400 !important;line-height:1.25;letter-spacing:-.03em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.section-number{font-size:14px;font-weight:400;color:var(--text);letter-spacing:.04em;line-height:1.2;display:block;flex:none}
+.note{margin:8px 0 0;color:var(--muted);font-size:14px}
+.section-card .guide-shell,.section-card .schedule-shell{background:transparent;border:0;border-radius:0}
+.section-card .process-shell,.section-card .pricebox,.section-card .portbox{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+
+/* GUIDE — one outer box */
+.guide-shell{display:grid;grid-template-columns:1fr;gap:10px;overflow:visible;padding:0}
+.guide{padding:24px 26px 22px;background:var(--card);border:1px solid var(--line)!important;border-radius:var(--r)!important;box-shadow:none!important}
+.guide h3{margin:7px 0 12px;font-size:19px;font-weight:400 !important;display:flex;align-items:center;gap:9px}
+.guide h3:before{content:"";display:block;width:4px;height:18px;border-radius:2px;background:var(--accent);flex:none}
+.guide p,.guide li{color:var(--muted);font-size:14px}
+.guide p{margin:0}
+.guide ul{margin:0;padding-left:19px}
+.guide-refund{padding:24px 26px 22px}
+
+/* SCHEDULE — one outer box */
+.schedule-shell{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;overflow:visible;padding:0}
+.month{padding:28px 20px 30px;text-align:center;min-height:170px;background:var(--card)!important;border:1px solid var(--line)!important;border-radius:var(--r)!important;box-shadow:none!important}
+.month-name{font-size:22px;font-weight:400 !important;margin-top:1px}
+.status{display:inline-flex;gap:7px;align-items:center;margin-top:36px;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:400}
+.status.available{color:#FFFFFF !important;background:#577399}
+.status.closed{color:var(--muted);background:#E7E7E7}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.foot{color:var(--muted);font-size:12px;margin-top:14px}
+
+/* USAGE RANGE */
+.guide-usage{padding-top:24px;padding-bottom:26px}
+.usage-table{width:100%;border:1px solid var(--line);border-radius:10px;border-collapse:separate;border-spacing:0;overflow:hidden;table-layout:fixed;font-size:13px}
+.usage-table th,.usage-table td{padding:7px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;line-height:1.35}
+.usage-table th{background:#BDD5EA;font-weight:400}
+.usage-table th:first-child,.usage-table td:first-child{text-align:left;width:40%;font-weight:400}
+.usage-table th:last-child,.usage-table td:last-child{border-right:0}
+.usage-table tr:last-child td{border-bottom:0}
+.usage-yes{font-size:17px;color:var(--accent);font-weight:400;line-height:1;display:inline-block}
+.usage-no{font-size:17px;color:#C75B5B;font-weight:400}
+.usage-sub{display:block;margin-top:2px;color:var(--muted);font-size:11px;font-weight:400}
+
+/* PROCESS — one outer box, compact arrow flow + confirm guide */
+.process-shell{padding:0;overflow:visible}
+.process{display:flex;align-items:center;justify-content:center;gap:0}
+.p{position:relative;flex:0 0 auto;width:auto;height:44px;min-height:44px;padding:4px 16px;border:1px solid var(--line);border-radius:10px;text-align:center;background:#fff;display:flex;flex-direction:column;justify-content:center}
+.p:not(:last-child){margin-right:30px}
+.p:not(:last-child)::after{content:'→';position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:30px;text-align:center;color:var(--accent);font-size:19px;font-weight:400;line-height:1}
+.pnum{display:none}
+.p h3{font-size:14px;margin:0;line-height:1.2;white-space:nowrap;word-break:keep-all;font-weight:400}
+.confirm{background:#BDD5EA;border:1px solid var(--line);box-shadow:none}
+.confirm h3{color:#2D2D30}
+.done{background:#fff;border:1px solid var(--line);box-shadow:none}
+.revision-shell{margin-top:26px;overflow:visible}
+.revision{padding:24px 6px 0;border-top:1px solid var(--line)}
+.revision h3{margin:0 0 16px;font-weight:400;display:flex;align-items:center;gap:9px}
+.revision h3:before{content:"";display:block;width:4px;height:18px;border-radius:2px;background:var(--accent);flex:none}
+.revision li{color:var(--muted);font-size:14px}
+.example{display:none}
+
+
+/* PROCESS LAYOUT — step boxes sit directly on the page background */
+.section-card .process-shell{background:transparent;border:0;border-radius:0}
+.process{margin:0}
+.revision{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 20px 20px}
+.revision-shell{margin-top:28px}
+/* PRICE */
+.pricebox{padding:30px}
+.subtitle{font-size:18px;margin:0 0 16px;display:flex;align-items:center;gap:9px;font-weight:400}
+.subtitle:before{content:"";display:block;width:4px;height:17px;border-radius:2px;background:var(--accent);flex:none}
+.base{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.base button{border:1px solid var(--line);border-radius:10px;padding:22px;background:#fff;text-align:left}
+.base button.selected{border:2px solid var(--select);background:#fff;padding:21px}
+.base .price{display:block;color:var(--accent);font-size:21px}.base button b{font-size:17px;font-weight:400 !important}.base button .desc{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:4px}
+.options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.opt{border:1px solid var(--line);border-radius:10px;padding:18px;background:#fff}.opt.no-qty{cursor:pointer}
+.opt.selected{border-color:var(--select);background:#fff}
+.opt-name{font-weight:400 !important;font-size:17px}.opt-desc{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:3px;line-height:1.45}
+.opt-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+.opt-price{display:block;color:var(--accent);font-size:22px;line-height:1;white-space:nowrap}
+.step{display:flex;align-items:center;gap:8px;margin-top:0}
+.step button,.appstep button{width:29px;height:29px;border-radius:50%;border:1px solid var(--line);background:#fff}
+.count{min-width:18px;text-align:center;font-weight:400}
+.estimate{margin-top:20px;padding:22px 24px;border-radius:10px;background:var(--text);color:#fff;display:flex;justify-content:space-between;align-items:center}
+.estimate small{opacity:.7}
+.estimate strong{font-size:25px}
+.business{color:var(--muted);font-size:12px}
+
+/* PORTFOLIO */
+.portbox{padding:20px}
+.stage{min-height:580px;background:#E7E7E7;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.placeholder{width:min(68%,520px);height:520px;border:1px dashed #AB978C;border-radius:10px;display:grid;place-items:center;text-align:center;color:var(--muted);padding:20px}
+.stage img{max-width:100%;max-height:680px;object-fit:contain;cursor:zoom-in}
+.pnav{display:flex;justify-content:center;align-items:center;gap:20px;margin-top:16px}
+.arrow{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff}
+.pcnt{color:var(--muted);font-size:13px}
+
+
+/* PORTFOLIO LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.82);align-items:center;justify-content:center;padding:28px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:92vh;object-fit:contain;cursor:default}
+.lightbox-close{position:absolute;top:16px;right:18px;width:42px;height:42px;border:0;border-radius:50%;background:#fff;color:#2D2D30;font-size:28px;line-height:1;cursor:pointer}
+
+/* APPLICATION */
+.field{margin-bottom:22px}
+.field label{display:block;font-weight:400;font-size:14px;margin-bottom:9px}
+input[type=text],textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px 14px;background:#fff;color:var(--text);outline:none}
+textarea{min-height:120px;resize:vertical}
+.radio{display:flex;gap:10px;flex-wrap:wrap}
+.choice{display:inline-block!important;width:auto!important;margin:0!important;font-weight:400!important;border:1px solid var(--line);border-radius:10px;padding:12px 18px;cursor:pointer;position:relative;z-index:2;pointer-events:auto}
+.choice:has(input:checked){border-color:var(--accent);background:#fff}
+.choice input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.conditional{display:none;margin-top:13px}
+.conditional.active{display:block}
+.input-guide{margin:0 0 9px;color:var(--muted);font-size:13px;line-height:1.55}
+.validation{display:none;margin-top:7px;color:#C75B5B;font-size:12px;font-weight:400}
+.field.invalid>label{color:#C75B5B}
+.field.invalid input[type=text],.field.invalid textarea{border-color:#C75B5B;background:#FFF8F8}
+.radio.invalid .choice{border-color:#C75B5B;background:#FFF8F8}
+.field.invalid .validation{display:block}
+.base.validation-bad button{border-color:#C75B5B;background:#FFF8F8}
+.msg.error{color:#C75B5B}
+
+.copy{width:100%;margin-top:8px;border:0;border-radius:10px;padding:16px;background:var(--accent);color:#fff;font-weight:400}
+.msg{text-align:center;color:var(--accent);font-size:13px;font-weight:400;min-height:20px;margin-top:8px}
+.apply-divider{margin:28px 0;border-top:1px solid var(--line)}
+.apply-area{padding-top:2px}
+.help{text-align:center;color:var(--muted);font-size:12px}
+
+/* FLOATING NAV / FOOTER */
+.float{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.float a{padding:11px 13px;color:var(--muted);text-decoration:none;font-size:12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.float a:last-child{border:0}
+.float a:hover{background:var(--soft);color:var(--accent)}
+footer{margin-top:48px;padding:28px 10px;border-top:1px solid var(--line);text-align:center;color:var(--muted)}
+footer strong{display:block;color:var(--text);font-size:18px;font-weight:400}
+footer small{font-size:11px}
+
+@media(max-width:980px){
+  .process{flex-wrap:wrap;justify-content:center;row-gap:14px}
+  .p{width:auto}
+  .p:not(:last-child){margin-right:30px}
+  .options{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+  .page{padding:0 20px 70px}
+  .hero-img{min-height:205px}
+  .guide-shell,.schedule-shell{grid-template-columns:1fr}
+  .guide{min-height:0}
+  .month{min-height:0}
+  .process-shell{padding:0}
+  .process{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0}
+  .p{width:100%;height:38px;min-height:38px;padding:4px 10px}
+  .p:not(:last-child){margin-right:0;margin-bottom:34px}
+  .p:not(:last-child)::after{content:'↓';right:auto;top:auto;bottom:-29px;left:50%;transform:translateX(-50%);color:var(--line);font-size:20px;font-weight:400;line-height:1}
+  .p h3{white-space:nowrap}
+  .revision{padding:22px 6px 2px}
+
+  .usage-table{font-size:11px}
+  .usage-table th,.usage-table td{padding:6px 6px}
+  .usage-table th:first-child,.usage-table td:first-child{width:42%}
+  .usage-yes,.usage-no{font-size:15px}
+
+  .head{padding:0 0 16px}.title{font-size:26px}
+  .portbox,.pricebox{padding:22px 18px}
+  .stage{min-height:420px}
+  .placeholder{width:82%;height:380px}
+  .base,.options{grid-template-columns:1fr}
+  .float{top:auto;bottom:12px;right:12px;transform:none;flex-direction:row;max-width:calc(100vw - 24px);overflow-x:auto}
+  .float a{border:0;border-right:1px solid var(--line);font-size:11px;padding:9px 10px}
+  .float a:last-child{border:0}
+}
+
+/* typography overrides */
+.title{font-weight:700 !important;}
+.title .section-number{font-weight:700 !important;}
+.guide h3,.revision h3,.subtitle{font-weight:700 !important;font-size:20px !important;}
+.month-name{font-weight:700 !important;font-size:24px !important;}
+.base button b,.opt-name{font-weight:700 !important;font-size:20px !important;}
+.base .price,.opt-price,.estimate strong{font-weight:700 !important;font-size:20px !important;}
+</style></head><body>
+<nav class="float"><a href="#guide">안내사항</a><a href="#schedule">예약현황</a><a href="#process">작업 순서</a><a href="#portfolio">포트폴리오</a><a href="#price">견적·신청</a></nav>
+<main class="page">
+
+<section id="guide"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">01</span>안내사항</h2></div><div class="guide-shell">
+<article class="card guide"><h3>작업 관련 안내</h3><ul><li>작업 기간은 최대 1개월이며 작업 내용에 따라 달라질 수 있습니다.</li><li>리깅이 포함되지 않은 파츠분리 일러스트입니다.</li></ul></article>
+<article class="card guide"><h3>저작권 및 이용 안내</h3><ul><li>저작권은 작가에게 귀속됩니다.</li><li>2차 수정 및 무단 배포를 금지합니다.</li><li>작업물을 AI 학습·생성·변형 등의 용도로 사용하는 것을 금지합니다. 저작권 구매 여부와 관계없이 적용됩니다.</li></ul></article>
+<article class="card guide"><h3>포트폴리오 사용</h3><p>모든 작업물은 포트폴리오로 사용될 수 있습니다. 비공개를 원하시는 경우 비공개 옵션을 추가해주세요.</p></article>
+<article class="card guide guide-refund"><h3>결제 및 환불 안내</h3><ul><li>예약금 10만원이 발생하며, 취소 시에도 환불되지 않습니다.</li><li>디자인 및 러프 작업 단계 중 70% 환불됩니다.</li><li>선화 단계 이후 환불이 불가합니다.</li></ul></article>
+<article class="card guide guide-usage"><h3>사용 범위 안내</h3><table class="usage-table" aria-label="사용 범위 안내"><thead><tr><th>범위</th><th>저작권 구매 X</th><th>저작권 구매</th></tr></thead><tbody><tr><td>스트리밍</td><td><span class="usage-yes">○</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>유튜브 업로드</td><td><span class="usage-yes">○</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>굿즈 제작 및 판매</td><td><span class="usage-no">×</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>일러스트 기반 3D 모델 제작</td><td><span class="usage-no">×</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>타 작가 의뢰<span class="usage-sub">(신의상, 신 헤어 등)</span></td><td><span class="usage-no">×</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>모델 양도<span class="usage-sub">*양도 전 문의 바랍니다.</span></td><td><span class="usage-no">×</span></td><td><span class="usage-yes">○</span></td></tr></tbody></table></article>
+</div></div></section>
+<section id="schedule"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">02</span>예약현황</h2><p class="note">예약은 입금 순으로 확정됩니다.</p></div><div class="schedule-shell"><article class="card month"><div class="month-name">10월</div><div class="status available"><span class="dot"></span>예약 가능</div></article><article class="card month"><div class="month-name">11월</div><div class="status available"><span class="dot"></span>예약 가능</div></article><article class="card month"><div class="month-name">12월</div><div class="status available"><span class="dot"></span>예약 가능</div></article></div></div></section>
+<section id="process"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">03</span>작업진행순서</h2></div><div class="process-shell"><div class="process">
+<article class="card p"><div class="pnum">01</div><h3>문의</h3></article><article class="card p"><div class="pnum">02</div><h3>결제</h3></article><article class="card p"><div class="pnum">03</div><h3>디자인 · 스케치</h3></article><article class="card p confirm"><div class="pnum">04</div><h3>컨펌</h3></article><article class="card p"><div class="pnum">05</div><h3>완성</h3></article><article class="card p confirm"><div class="pnum">06</div><h3>컨펌</h3></article><article class="card p"><div class="pnum">07</div><h3>파츠분리</h3></article><article class="card p"><div class="pnum">08</div><h3>작업물 전달</h3></article></div>
+<div class="revision-shell"><div class="revision"><h3>컨펌 안내</h3><ul><li>컨펌은 스케치 단계 1회, 완성 단계 1회, 총 2회 진행됩니다.</li><li>각 컨펌 단계에서는 총 3회의 수정 요청 기회가 제공됩니다.</li><li>수정 요청 시 수정사항의 개수에는 제한이 없으며, 가능한 한 수정사항을 모두 취합하여 한 번에 전달해주세요.</li><li>컨펌을 통해 확정된 디자인이나 작업 방향을 이후 변경하는 경우 추가 비용이 발생할 수 있습니다.</li><li>작업자의 실수 또는 수정사항 누락·오반영으로 인한 수정은 수정 요청 횟수에 포함되지 않습니다.</li></ul></div></div></div></section>
+<section id="portfolio"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">04</span>포트폴리오</h2></div><div class="card portbox"><div class="stage"><img id="portfolioImage" src="images/portfolio1.jpg" alt="포트폴리오 이미지" onclick="openPortfolioLightbox()"><div class="placeholder" id="portfolioPlaceholder">images/portfolio1.jpg<br>이미지를 GitHub 저장소의 images 폴더에 넣어주세요.</div></div><div class="pnav"><button class="arrow" type="button" onclick="prevPortfolio()">‹</button><span class="pcnt" id="portfolioCount">1 / 1</span><button class="arrow" type="button" onclick="nextPortfolio()">›</button></div></div></div></section>
+
+<div class="lightbox" id="portfolioLightbox" aria-hidden="true" onclick="closePortfolioLightbox(event)"><button type="button" class="lightbox-close" aria-label="닫기">×</button><img id="lightboxImage" src="" alt="확대 포트폴리오 이미지"></div>
+
+<section id="price"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">05</span>견적 및 신청서 작성</h2><p class="note">신청 내용을 함께 작성한 뒤 복사하여 아트머그 문의창으로 문의해주세요.</p></div><div class="card pricebox"><h3 class="subtitle">기본 상품</h3><div class="base"><button data-base="1200000" data-name="전신" onclick="selectBase(this)"><b>전신</b><span class="desc">캐릭터 전신 일러스트</span><span class="price">1,200,000원</span></button><button data-base="800000" data-name="반신" onclick="selectBase(this)"><b>반신</b><span class="desc">캐릭터 반신 일러스트</span><span class="price">800,000원</span></button></div><h3 class="subtitle" style="margin-top:30px">추가 옵션</h3><div class="options" id="priceOptions"></div><div class="estimate"><small>선택한 옵션 기준 예상 견적</small><strong id="total">0원</strong></div><p class="business">※ 기업세 작업은 단가 및 저작권 이용 범위가 달라질 수 있으므로 별도 문의 바랍니다.</p>
+<div class="apply-divider"></div>
+<div class="apply-area">
+<div class="field"><label>방송 플랫폼 / 활동명</label><input id="platform" type="text" placeholder="예: 치지직 / 닉네임"></div>
+<div class="field" id="characterField"><label>캐릭터 자료</label><div class="radio" id="designRadio"><label class="choice"><input type="radio" name="design" value="design" onchange="designMode()">디자인 맡김</label><label class="choice"><input type="radio" name="design" value="existing" onchange="designMode()">기존 캐릭터 사용</label></div><div id="designText" class="conditional"><p class="input-guide">원하는 이미지에 대한 설명을 작성해주세요. (성별, 나이, 헤어스타일, 의상, 색상, 체형, 컨셉 등)</p><textarea id="desc" placeholder="캐릭터의 특징을 자유롭게 작성해주세요."></textarea><div class="validation" id="descValidation">캐릭터 설명을 작성해주세요.</div></div><div id="existingText" class="conditional"><p class="input-guide">캐릭터 외형을 확인할 수 있는 일러스트 자료를 첨부해주세요.</p><p style="margin:0;color:var(--muted);font-size:12px">※ 이미지는 견적 및 신청 내용 복사 후 아트머그 문의창에서 별도로 첨부해주세요.</p></div><div class="validation" id="designValidation">디자인 방식을 선택해주세요.</div></div>
+<div class="field"><label>기타 요청사항</label><textarea id="request" placeholder="기타 요청사항이 있다면 작성해주세요."></textarea></div>
+<button class="copy" onclick="copyApp()">견적 및 신청 내용 복사하기</button><div id="msg" class="msg"></div><p class="help">복사한 내용을 아트머그 문의창에 붙여넣은 후 필요한 이미지 자료를 별도로 첨부해주세요.</p>
+</div>
+</div></div></section>
+
+<footer><strong>HAREHA</strong>Virtual Illustration<br><small>© 2026 HAREHA. All Rights Reserved.</small></footer></main>
+<script>
+const opts=[
+  ['hair','헤어 추가',300000,'새로운 헤어스타일을 추가할 수 있습니다.'],
+  ['hairBack','헤어 추가 (뒷머리만)',100000,'뒷머리만 추가하고 싶은 경우 선택해주세요.'],
+  ['outfit','의상 추가',400000,'새로운 의상을 추가할 수 있습니다.'],
+  ['outfitToggle','의상 ON/OFF',150000,'외투를 벗을 수 있도록 의상을 분리해드립니다.'],
+  ['armPose','팔 포즈 추가',50000,'소품은 추가금액이 발생합니다. (별도 문의)'],
+  ['game','게임기 추가',100000,'게임기와 게임기를 들고 있는 팔을 추가합니다.'],
+  ['expression','표정 추가',20000,'기본 표정(홍조, 그림자, 눈물, 눈 반짝, 하트눈) 외에 표정을 추가하고 싶은 경우 선택해주세요.'],
+  ['designDraft','디자인 시안 1안',100000,'캐릭터를 디자인해드립니다. 여러 시안을 원하는 경우 여러 개 선택할 수 있습니다.'],
+  ['copyright','저작권 구매',400000,'저작권 구매 범위는 안내사항을 참고해주세요.']
+];
+let base=0,baseName='',cnt={};
+const noQuantity=new Set(['game','copyright']);
+opts.forEach(o=>cnt[o[0]]=0);
+const won=n=>n.toLocaleString('ko-KR')+'원';
+function render(){
+  priceOptions.innerHTML=opts.map(o=>{
+    const single=noQuantity.has(o[0]);
+    const click=single ? ` onclick="toggleSingle('${o[0]}')" role="button" tabindex="0"` : '';
+    const bottom=single
+      ? `<div class="opt-bottom"><span class="opt-price">+${won(o[2])}</span></div>`
+      : `<div class="opt-bottom"><span class="opt-price">+${won(o[2])}</span><div class="step"><button onclick="chg('${o[0]}',-1)">−</button><span class="count" id="pc-${o[0]}">0</span><button onclick="chg('${o[0]}',1)">+</button></div></div>`;
+    return `<div class="opt${single?' no-qty':''}" id="po-${o[0]}"${click}><div class="opt-name">${o[1]}</div><span class="opt-desc">${o[3]}</span>${bottom}</div>`;
+  }).join('');
+  priceOptions.querySelectorAll('.no-qty').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}}));
+  update();
+}
+function selectBase(b){
+  document.querySelector('#price .base').classList.remove('validation-bad');
+  document.querySelectorAll('.base button').forEach(x=>x.classList.remove('selected'));
+  b.classList.add('selected');
+  base=+b.dataset.base;
+  baseName=b.dataset.name;
+  update();
+}
+function chg(id,d){
+  cnt[id]=Math.max(0,cnt[id]+d);
+  document.getElementById('pc-'+id).textContent=cnt[id];
+  document.getElementById('po-'+id).classList.toggle('selected',cnt[id]>0);
+  update();
+}
+function toggleSingle(id){
+  cnt[id]=cnt[id]?0:1;
+  document.getElementById('po-'+id).classList.toggle('selected',cnt[id]===1);
+  update();
+}
+function calcTotal(){let t=base;opts.forEach(o=>t+=cnt[o[0]]*o[2]);return t}
+function update(){total.textContent=won(calcTotal())}
+function designMode(){
+  const checked=document.querySelector('[name="design"]:checked');
+  const v=checked ? checked.value : '';
+  const showDesign=v==='design';
+  const showExisting=v==='existing';
+  designText.classList.toggle('active',showDesign);
+  existingText.classList.toggle('active',showExisting);
+  designRadio.classList.remove('invalid');
+  characterField.classList.remove('invalid');
+  document.getElementById('designValidation').textContent='';
+  if(showDesign && document.getElementById('desc').value.trim()){
+    designText.classList.remove('invalid');
+  }
+}
+function clearValidation(el){
+  el.classList.remove('invalid');
+  const v=el.querySelector?.('.validation');
+  if(v) v.textContent='';
+  msg.textContent='';
+  msg.className='msg';
+}
+function validateApp(){
+  document.querySelectorAll('.field.invalid').forEach(x=>x.classList.remove('invalid'));
+  document.querySelectorAll('.radio.invalid').forEach(x=>x.classList.remove('invalid'));
+  document.querySelectorAll('.validation').forEach(x=>x.textContent='');
+  msg.textContent='';
+  msg.className='msg';
+  let firstBad=null;
+  const platform=document.getElementById('platform').value.trim();
+  if(!base){
+    document.querySelector('#price .base').classList.add('validation-bad');
+    if(!firstBad) firstBad=document.querySelector('#price .base');
+  }
+  const d=document.querySelector('[name=design]:checked')?.value;
+  if(!d){
+    designRadio.classList.add('invalid');
+    characterField.classList.add('invalid');
+    document.getElementById('designValidation').textContent='디자인 방식을 선택해주세요.';
+    if(!firstBad) firstBad=designRadio.querySelector('.choice');
+  } else if(d==='design' && !document.getElementById('desc').value.trim()){
+    characterField.classList.add('invalid');
+    designText.classList.add('invalid');
+    document.getElementById('designValidation').textContent='캐릭터 설명을 작성해주세요.';
+    if(!firstBad) firstBad=document.getElementById('desc');
+  }
+  if(!platform){
+    const f=document.getElementById('platform').closest('.field');
+    f.classList.add('invalid');
+    let v=f.querySelector('.validation');
+    if(!v){ v=document.createElement('div'); v.className='validation'; f.appendChild(v); }
+    v.textContent='방송 플랫폼 / 활동명을 작성해주세요.';
+    if(!firstBad) firstBad=document.getElementById('platform');
+  }
+  if(firstBad){
+    msg.textContent='필수 항목을 확인해주세요.';
+    msg.className='msg error';
+    firstBad.scrollIntoView({behavior:'smooth',block:'center'});
+    try{firstBad.focus()}catch(e){}
+    return false;
+  }
+  return true;
+}
+function copyApp(){
+  if(!validateApp()) return;
+  const platform=document.getElementById('platform').value.trim();
+  const d=document.querySelector('[name=design]:checked').value;
+  const desc=document.getElementById('desc').value.trim();
+  const req=document.getElementById('request').value.trim();
+  const selected=opts.filter(o=>cnt[o[0]]>0).map(o=>{const qty=noQuantity.has(o[0])?'':` × ${cnt[o[0]]}`;return `- ${o[1]}${qty} (+${won(o[2]*cnt[o[0]])})`}).join('\n')||'- 없음';
+  const text=`[견적 및 신청 양식]\n\n방송 플랫폼/활동명: ${platform}\n기본 상품: ${baseName} · ${won(base)}\n\n추가 옵션:\n${selected}\n\n예상 견적: ${won(calcTotal())}\n\n캐릭터 디자인: ${d==='design'?'디자인 맡김':'기존 캐릭터 사용'}\n${d==='design'?'캐릭터 설명: '+desc:'캐릭터 자료: 문의창에 별도 첨부'}\n\n기타 요청사항: ${req||'없음'}`;
+  navigator.clipboard.writeText(text).then(()=>{msg.textContent='견적 및 신청 내용이 복사되었습니다.';msg.className='msg';}).catch(()=>{msg.textContent='복사에 실패했습니다.';msg.className='msg error';});
+}
+document.querySelectorAll('#designRadio .choice').forEach(choice=>{
+  choice.addEventListener('click',()=>{
+    const input=choice.querySelector('input[type=radio]');
+    if(input){ input.checked=true; designMode(); }
+  });
+});
+document.getElementById('platform').addEventListener('input',()=>document.getElementById('platform').closest('.field').classList.remove('invalid'));
+document.getElementById('desc').addEventListener('input',()=>{if(document.getElementById('desc').value.trim()){document.getElementById('characterField').classList.remove('invalid');document.getElementById('designText').classList.remove('invalid');}});
+document.getElementById('request').addEventListener('input',()=>{msg.textContent='';msg.className='msg'});
+const portfolioImages=['images/portfolio1.jpg'];
+let portfolioIndex=0;
+function refreshPortfolio(){
+  const img=document.getElementById('portfolioImage');
+  const placeholder=document.getElementById('portfolioPlaceholder');
+  const count=document.getElementById('portfolioCount');
+  const src=portfolioImages[portfolioIndex];
+  img.src=src;
+  img.style.display='block';
+  placeholder.style.display='none';
+  count.textContent=`${portfolioIndex+1} / ${portfolioImages.length}`;
+  img.onerror=()=>{img.style.display='none';placeholder.style.display='grid';};
+}
+function prevPortfolio(){portfolioIndex=(portfolioIndex-1+portfolioImages.length)%portfolioImages.length;refreshPortfolio();}
+function nextPortfolio(){portfolioIndex=(portfolioIndex+1)%portfolioImages.length;refreshPortfolio();}
+function openPortfolioLightbox(){
+  const src=portfolioImages[portfolioIndex];
+  const img=document.getElementById('portfolioImage');
+  if(img.style.display==='none') return;
+  document.getElementById('lightboxImage').src=src;
+  document.getElementById('portfolioLightbox').classList.add('open');
+  document.getElementById('portfolioLightbox').setAttribute('aria-hidden','false');
+}
+function closePortfolioLightbox(e){
+  if(e && e.target && e.target.id!=='portfolioLightbox' && !e.target.classList.contains('lightbox-close')) return;
+  document.getElementById('portfolioLightbox').classList.remove('open');
+  document.getElementById('portfolioLightbox').setAttribute('aria-hidden','true');
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closePortfolioLightbox({target:document.getElementById('portfolioLightbox')});
+});
+refreshPortfolio();
+
+render();
+</script></body></html>
