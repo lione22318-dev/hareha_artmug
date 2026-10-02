@@ -154,6 +154,8 @@ textarea{min-height:120px;resize:vertical}
 
 /* FLOATING NAV / FOOTER */
 .float{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.float.float-pc{display:flex}
+.float.float-mobile{display:none}
 .float a{padding:11px 13px;color:var(--muted);text-decoration:none;font-size:12px;border-bottom:1px solid var(--line);white-space:nowrap}
 .float a:last-child{border:0}
 .float a:hover{background:var(--soft);color:var(--accent)}
@@ -191,9 +193,10 @@ footer small{font-size:11px}
   .stage{min-height:420px}
   .placeholder{width:82%;height:380px}
   .base,.options{grid-template-columns:1fr}
-  .float{top:auto;bottom:12px;right:12px;transform:none;flex-direction:row;max-width:calc(100vw - 24px);overflow-x:auto}
-  .float a{border:0;border-right:1px solid var(--line);font-size:11px;padding:9px 10px}
-  .float a:last-child{border:0}
+  .float.float-pc{display:none !important}
+  .float.float-mobile{display:flex !important;top:auto;bottom:12px;right:12px;transform:none;flex-direction:row;max-width:calc(100vw - 24px);overflow-x:auto}
+  .float.float-mobile a{border:0;border-right:1px solid var(--line);font-size:11px;padding:9px 10px}
+  .float.float-mobile a:last-child{border:0}
 }
 
 /* typography overrides */
@@ -204,7 +207,6 @@ footer small{font-size:11px}
 .base button b,.opt-name{font-weight:700 !important;font-size:20px !important;}
 .base .price,.opt-price,.estimate strong{font-weight:700 !important;font-size:20px !important;}
 </style></head><body>
-<nav class="float"><a href="#guide">안내사항</a><a href="#schedule">예약현황</a><a href="#process">작업 순서</a><a href="#portfolio">포트폴리오</a><a href="#price">견적·신청</a></nav>
 <main class="page">
 
 <section id="guide"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">01</span>안내사항</h2></div><div class="guide-shell">
