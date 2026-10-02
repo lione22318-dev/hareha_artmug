@@ -152,13 +152,7 @@ textarea{min-height:120px;resize:vertical}
 .apply-area{padding-top:2px}
 .help{text-align:center;color:var(--muted);font-size:12px}
 
-/* FLOATING NAV / FOOTER */
-.float{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.float.float-pc{display:flex}
-.float.float-mobile{display:none}
-.float a{padding:11px 13px;color:var(--muted);text-decoration:none;font-size:12px;border-bottom:1px solid var(--line);white-space:nowrap}
-.float a:last-child{border:0}
-.float a:hover{background:var(--soft);color:var(--accent)}
+/* FOOTER */
 footer{margin-top:48px;padding:28px 10px;border-top:1px solid var(--line);text-align:center;color:var(--muted)}
 footer strong{display:block;color:var(--text);font-size:18px;font-weight:400}
 footer small{font-size:11px}
@@ -193,10 +187,6 @@ footer small{font-size:11px}
   .stage{min-height:420px}
   .placeholder{width:82%;height:380px}
   .base,.options{grid-template-columns:1fr}
-  .float.float-pc{display:none !important}
-  .float.float-mobile{display:flex !important;top:auto;bottom:12px;right:12px;transform:none;flex-direction:row;max-width:calc(100vw - 24px);overflow-x:auto}
-  .float.float-mobile a{border:0;border-right:1px solid var(--line);font-size:11px;padding:9px 10px}
-  .float.float-mobile a:last-child{border:0}
 }
 
 /* typography overrides */
@@ -236,6 +226,17 @@ footer small{font-size:11px}
 
 <footer><strong>HAREHA</strong>Virtual Illustration<br><small>© 2026 HAREHA. All Rights Reserved.</small></footer></main>
 <script>
+// Artmug custom floating menu -> this iframe navigation
+window.addEventListener('message', function(event){
+  if(event.origin !== 'https://lione22318-dev.github.io') return;
+  const targetId = typeof event.data === 'string' ? event.data : event.data && event.data.target;
+  if(!targetId) return;
+  const target = document.getElementById(targetId);
+  if(target){
+    target.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+});
+
 const opts=[
   ['hair','헤어 추가',300000,'새로운 헤어스타일을 추가할 수 있습니다.'],
   ['hairBack','헤어 추가 (뒷머리만)',100000,'뒷머리만 추가하고 싶은 경우 선택해주세요.'],
