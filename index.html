@@ -214,7 +214,7 @@ footer small{font-size:11px}
 
 <div class="lightbox" id="portfolioLightbox" aria-hidden="true" onclick="closePortfolioLightbox(event)"><button type="button" class="lightbox-close" aria-label="닫기">×</button><img id="lightboxImage" src="" alt="확대 포트폴리오 이미지"></div>
 
-<section id="price"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">05</span>견적 및 신청서 작성</h2><p class="note">신청 내용을 함께 작성한 뒤 복사하여 아트머그 문의창으로 문의해주세요.</p></div><div class="card pricebox"><h3 class="subtitle">기본 상품</h3><div class="base"><button data-base="1200000" data-name="전신" onclick="selectBase(this)"><b>전신</b><span class="desc">캐릭터 전신 일러스트</span><span class="price">1,200,000원</span></button><button data-base="800000" data-name="반신" onclick="selectBase(this)"><b>반신</b><span class="desc">캐릭터 반신 일러스트</span><span class="price">800,000원</span></button></div><h3 class="subtitle" style="margin-top:30px">추가 옵션</h3><div class="options" id="priceOptions"></div><div class="estimate"><small>선택한 옵션 기준 예상 견적</small><strong id="total">0원</strong></div><p class="business">※ 기업세 작업은 단가 및 저작권 이용 범위가 달라질 수 있으므로 별도 문의 바랍니다.</p>
+<section id="price"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">05</span>견적 및 신청서 작성</h2><p class="note">신청 내용을 함께 작성한 뒤 복사하여 아트머그 문의창으로 문의해주세요.</p></div><div class="card pricebox"><h3 class="subtitle">기본 옵션</h3><div class="base"><button data-base="1200000" data-name="전신" onclick="selectBase(this)"><b>전신</b><span class="desc">캐릭터 전신 일러스트</span><span class="price">1,200,000원</span></button><button data-base="800000" data-name="반신" onclick="selectBase(this)"><b>반신</b><span class="desc">캐릭터 반신 일러스트</span><span class="price">800,000원</span></button></div><h3 class="subtitle" style="margin-top:30px">추가 옵션</h3><div class="options" id="priceOptions"></div><div class="estimate"><small>선택한 옵션 기준 예상 견적</small><strong id="total">0원</strong></div><p class="business">※ 기업세 작업은 단가 및 저작권 이용 범위가 달라질 수 있으므로 별도 문의 바랍니다.</p>
 <div class="apply-divider"></div>
 <div class="apply-area">
 <div class="field"><label>방송 플랫폼 / 활동명</label><input id="platform" type="text" placeholder="예: 치지직 / 닉네임"></div>
@@ -336,15 +336,59 @@ function validateApp(){
   }
   return true;
 }
+function copyTextFallback(text){
+  const ta=document.createElement('textarea');
+  ta.value=text;
+  ta.setAttribute('readonly','');
+  ta.style.position='fixed';
+  ta.style.left='-9999px';
+  ta.style.top='0';
+  ta.style.opacity='0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  let ok=false;
+  try{ ok=document.execCommand('copy'); }catch(e){ ok=false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+
 function copyApp(){
   if(!validateApp()) return;
   const platform=document.getElementById('platform').value.trim();
   const d=document.querySelector('[name=design]:checked').value;
   const desc=document.getElementById('desc').value.trim();
   const req=document.getElementById('request').value.trim();
-  const selected=opts.filter(o=>cnt[o[0]]>0).map(o=>{const qty=noQuantity.has(o[0])?'':` × ${cnt[o[0]]}`;return `- ${o[1]}${qty} (+${won(o[2]*cnt[o[0]])})`}).join('\n')||'- 없음';
-  const text=`[견적 및 신청 양식]\n\n방송 플랫폼/활동명: ${platform}\n기본 상품: ${baseName} · ${won(base)}\n\n추가 옵션:\n${selected}\n\n예상 견적: ${won(calcTotal())}\n\n캐릭터 디자인: ${d==='design'?'디자인 맡김':'기존 캐릭터 사용'}\n${d==='design'?'캐릭터 설명: '+desc:'캐릭터 자료: 문의창에 별도 첨부'}\n\n기타 요청사항: ${req||'없음'}`;
-  navigator.clipboard.writeText(text).then(()=>{msg.textContent='견적 및 신청 내용이 복사되었습니다.';msg.className='msg';}).catch(()=>{msg.textContent='복사에 실패했습니다.';msg.className='msg error';});
+  const selected=opts.filter(o=>cnt[o[0]]>0).map(o=>{
+    const qty=noQuantity.has(o[0])?'':(cnt[o[0]]>1?` × ${cnt[o[0]]}`:'');
+    return `  - ${o[1]}${qty}: ${won(o[2]*cnt[o[0]])}`;
+  }).join('\n') || '  - 없음';
+  const characterDesign=d==='design'?'디자인 맡김':'기존 캐릭터 사용';
+  const characterData=d==='design'?desc:'문의창에 별도 첨부';
+  const text=`[신청서]\n\n- 방송플랫폼/활동명: ${platform}\n- 캐릭터 디자인: ${characterDesign}\n- 캐릭터 자료: ${characterData}\n- 기타 요청사항: ${req||'없음'}\n\n[견적]\n\n- ${baseName} : ${won(base)}\n- 추가옵션\n${selected}\n\n-----------------------------\n\n예상 견적: ${won(calcTotal())}\n-----------------------------`;
+
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(()=>{
+      msg.textContent='견적 및 신청 내용이 복사되었습니다.';
+      msg.className='msg';
+    }).catch(()=>{
+      if(copyTextFallback(text)){
+        msg.textContent='견적 및 신청 내용이 복사되었습니다.';
+        msg.className='msg';
+      }else{
+        msg.textContent='복사에 실패했습니다. 내용을 직접 선택해 복사해주세요.';
+        msg.className='msg error';
+      }
+    });
+  }else{
+    if(copyTextFallback(text)){
+      msg.textContent='견적 및 신청 내용이 복사되었습니다.';
+      msg.className='msg';
+    }else{
+      msg.textContent='복사에 실패했습니다. 내용을 직접 선택해 복사해주세요.';
+      msg.className='msg error';
+    }
+  }
 }
 document.querySelectorAll('#designRadio .choice').forEach(choice=>{
   choice.addEventListener('click',()=>{
