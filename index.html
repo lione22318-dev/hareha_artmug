@@ -226,20 +226,6 @@ footer small{font-size:11px}
 
 <footer><strong>HAREHA</strong>Virtual Illustration<br><small>© 2026 HAREHA. All Rights Reserved.</small></footer></main>
 <script>
-// Give this iframe a stable browsing-context name so Artmug custom-menu links can target it.
-window.name = 'commissionFrame';
-
-// Optional message support for custom-menu integrations.
-window.addEventListener('message', function(event){
-  if(event.source !== window.parent) return;
-  const targetId = typeof event.data === 'string' ? event.data : event.data && event.data.target;
-  if(!targetId) return;
-  const target = document.getElementById(targetId);
-  if(target){
-    target.scrollIntoView({behavior:'smooth', block:'start'});
-  }
-});
-
 const opts=[
   ['hair','헤어 추가',300000,'새로운 헤어스타일을 추가할 수 있습니다.'],
   ['hairBack','헤어 추가 (뒷머리만)',100000,'뒷머리만 추가하고 싶은 경우 선택해주세요.'],
