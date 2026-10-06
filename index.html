@@ -164,29 +164,92 @@ footer small{font-size:11px}
   .options{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:650px){
-  .page{padding:0 20px 70px}
-  .hero-img{min-height:205px}
+  .page{padding:0 20px 40px}
+  section{margin-top:26px}
+
+  .hero-img{min-height:165px}
+  .hero-title{font-size:34px}
+  .hero-intro{padding:18px 16px}
+  .hero-intro p{font-size:13px}
+
   .guide-shell,.schedule-shell{grid-template-columns:1fr}
-  .guide{min-height:0}
-  .month{min-height:0}
+  .guide{padding:16px 16px 15px;min-height:0}
+  .guide h3{margin:2px 0 8px;font-size:16px;gap:8px}
+  .guide h3:before{width:3px;height:15px}
+  .guide p,.guide li{font-size:12px}
+  .guide ul{padding-left:16px}
+  .guide-refund{padding:16px}
+  .guide-usage{padding-top:16px;padding-bottom:16px}
+  .usage-table{font-size:10px}
+  .usage-table th,.usage-table td{padding:5px 4px}
+  .usage-table th:first-child,.usage-table td:first-child{width:42%}
+  .usage-yes,.usage-no{font-size:14px}
+  .usage-sub{font-size:10px}
+
+  .month{padding:18px 14px 20px;min-height:0}
+  .month-name{font-size:20px}
+  .status{margin-top:18px;padding:6px 11px;font-size:12px}
+  .foot{font-size:11px;margin-top:10px}
+
   .process-shell{padding:0}
   .process{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0}
-  .p{width:100%;height:38px;min-height:38px;padding:4px 10px}
-  .p:not(:last-child){margin-right:0;margin-bottom:34px}
-  .p:not(:last-child)::after{content:'↓';right:auto;top:auto;bottom:-29px;left:50%;transform:translateX(-50%);color:var(--line);font-size:20px;font-weight:400;line-height:1}
-  .p h3{white-space:nowrap}
-  .revision{padding:22px 6px 2px}
+  .p{width:100%;height:32px;min-height:32px;padding:3px 8px}
+  .p:not(:last-child){margin-right:0;margin-bottom:22px}
+  .p:not(:last-child)::after{content:'↓';right:auto;top:auto;bottom:-20px;left:50%;transform:translateX(-50%);color:var(--line);font-size:17px;font-weight:400;line-height:1}
+  .p h3{font-size:12px;white-space:nowrap}
+  .revision-shell{margin-top:20px}
+  .revision{padding:16px 14px 12px}
+  .revision h3{margin:0 0 10px;font-size:16px;gap:8px}
+  .revision h3:before{width:3px;height:15px}
+  .revision li{font-size:12px}
+  .revision ul{padding-left:17px;margin-top:0;margin-bottom:0}
 
-  .usage-table{font-size:11px}
-  .usage-table th,.usage-table td{padding:6px 6px}
-  .usage-table th:first-child,.usage-table td:first-child{width:42%}
-  .usage-yes,.usage-no{font-size:15px}
+  .head{padding:0 0 10px}
+  .title{font-size:24px}
+  .section-number{font-size:12px}
+  .note{font-size:12px;margin-top:5px}
 
-  .head{padding:0 0 16px}.title{font-size:26px}
-  .portbox,.pricebox{padding:22px 18px}
-  .stage{min-height:420px}
-  .placeholder{width:82%;height:380px}
+  .portbox,.pricebox{padding:16px}
+  .stage{min-height:300px}
+  .placeholder{width:78%;height:270px;padding:12px;font-size:12px}
+  .pnav{gap:14px;margin-top:10px}
+  .arrow{width:32px;height:32px}
+  .pcnt{font-size:11px}
+
   .base,.options{grid-template-columns:1fr}
+  .subtitle{font-size:16px;margin:0 0 10px;gap:8px}
+  .subtitle:before{width:3px;height:15px}
+  .base{gap:8px}
+  .base button{padding:13px 14px}
+  .base button.selected{padding:12px 13px}
+  .base button b{font-size:15px}
+  .base .price{font-size:18px;margin-top:2px}
+  .base button .desc{font-size:11px;margin-top:2px}
+  .options{gap:8px}
+  .opt{padding:12px 13px}
+  .opt-name{font-size:15px}
+  .opt-desc{font-size:11px;margin-top:2px;line-height:1.35}
+  .opt-bottom{margin-top:7px;gap:8px}
+  .opt-price{font-size:18px}
+  .step{gap:6px}
+  .step button,.appstep button{width:26px;height:26px}
+  .count{font-size:12px;min-width:16px}
+  .estimate{margin-top:12px;padding:14px 15px}
+  .estimate small{font-size:11px}
+  .estimate strong{font-size:21px}
+  .business{font-size:11px;margin:8px 0 0}
+  .apply-divider{margin:18px 0}
+
+  .field{margin-bottom:14px}
+  .field label{font-size:12px;margin-bottom:6px}
+  input[type=text],textarea{padding:10px 11px;font-size:13px}
+  textarea{min-height:88px}
+  .choice{padding:9px 12px;font-size:12px}
+  .input-guide{font-size:11px!important}
+  .help{font-size:11px}
+  footer{margin-top:28px;padding:20px 10px}
+  footer strong{font-size:16px}
+  footer small{font-size:10px}
 }
 
 /* typography overrides */
@@ -432,27 +495,6 @@ document.addEventListener('keydown',e=>{
 });
 refreshPortfolio();
 
-// Artmug iframe 자동 높이 조절
-function sendFrameHeight(){
-  const height=Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight
-  );
-  window.parent.postMessage({type:'hareha-resize',height}, '*');
-}
-
-window.addEventListener('load',sendFrameHeight);
-window.addEventListener('resize',sendFrameHeight);
-if(window.ResizeObserver){
-  new ResizeObserver(sendFrameHeight).observe(document.documentElement);
-}
-
-// 폰트/이미지 로딩 후 높이 변화를 한 번 더 반영
-setTimeout(sendFrameHeight,100);
-setTimeout(sendFrameHeight,500);
-setTimeout(sendFrameHeight,1000);
 
 render();
 setTimeout(sendFrameHeight,100);
