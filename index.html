@@ -496,6 +496,35 @@ document.addEventListener('keydown',e=>{
 refreshPortfolio();
 
 
+function getFrameHeight(){
+  const body=document.body;
+  const html=document.documentElement;
+  return Math.max(
+    body ? body.scrollHeight : 0,
+    body ? body.offsetHeight : 0,
+    html ? html.scrollHeight : 0,
+    html ? html.offsetHeight : 0,
+    html ? html.clientHeight : 0
+  );
+}
+
+let frameHeightRaf=0;
+function sendFrameHeight(){
+  cancelAnimationFrame(frameHeightRaf);
+  frameHeightRaf=requestAnimationFrame(()=>{
+    const height=getFrameHeight();
+    window.parent.postMessage({type:'hareha-resize',height},'*');
+  });
+}
+
+window.addEventListener('load',sendFrameHeight);
+window.addEventListener('resize',sendFrameHeight);
+if('ResizeObserver' in window){
+  const frameHeightObserver=new ResizeObserver(sendFrameHeight);
+  frameHeightObserver.observe(document.body);
+}
+
 render();
-setTimeout(sendFrameHeight,100);
+sendFrameHeight();
+
 </script></body></html>
