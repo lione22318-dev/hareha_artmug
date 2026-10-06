@@ -432,5 +432,28 @@ document.addEventListener('keydown',e=>{
 });
 refreshPortfolio();
 
+// Artmug iframe 자동 높이 조절
+function sendFrameHeight(){
+  const height=Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.offsetHeight
+  );
+  window.parent.postMessage({type:'hareha-resize',height}, '*');
+}
+
+window.addEventListener('load',sendFrameHeight);
+window.addEventListener('resize',sendFrameHeight);
+if(window.ResizeObserver){
+  new ResizeObserver(sendFrameHeight).observe(document.documentElement);
+}
+
+// 폰트/이미지 로딩 후 높이 변화를 한 번 더 반영
+setTimeout(sendFrameHeight,100);
+setTimeout(sendFrameHeight,500);
+setTimeout(sendFrameHeight,1000);
+
 render();
+setTimeout(sendFrameHeight,100);
 </script></body></html>
