@@ -7,9 +7,11 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-gtag('config', 'G-G9D8NZB314', {
-  cookie_flags: 'SameSite=None;Secure'
-});
+  gtag('config', 'G-G9D8NZB314');
+
+  function gaEvent(name, params){
+    if (typeof gtag === 'function') gtag('event', name, params || {});
+  }
 </script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>일러스트 커미션 페이지</title>
 <style>
@@ -165,8 +167,7 @@ textarea{min-height:120px;resize:vertical}
 .help{text-align:center;color:var(--muted);font-size:12px}
 
 /* FOOTER */
-footer{margin-top:48px;padding:28px 10px;border-top:1px solid var(--line);text-align:center;color:var(--muted)}
-footer strong{display:block;color:var(--text);font-size:18px;font-weight:400}
+footer{margin-top:28px;padding:14px 10px;border-top:1px solid var(--line);text-align:center;color:var(--muted)}
 footer small{font-size:11px}
 
 @media(max-width:980px){
@@ -259,8 +260,7 @@ footer small{font-size:11px}
   .choice{padding:9px 12px;font-size:12px}
   .input-guide{font-size:11px!important}
   .help{font-size:11px}
-  footer{margin-top:28px;padding:20px 10px}
-  footer strong{font-size:16px}
+  footer{margin-top:18px;padding:10px 10px}
   footer small{font-size:10px}
 }
 
@@ -299,7 +299,7 @@ footer small{font-size:11px}
 </div>
 </div></div></section>
 
-<footer><strong>HAREHA</strong>Virtual Illustration<br><small>© 2026 HAREHA. All Rights Reserved.</small></footer></main>
+<footer><small>© 2026 HAREHA. All Rights Reserved.</small></footer></main>
 <script>
 const opts=[
   ['hair','헤어 추가',300000,'새로운 헤어스타일을 추가할 수 있습니다.'],
@@ -330,11 +330,17 @@ function render(){
 }
 function selectBase(b){
   document.querySelector('#price .base').classList.remove('validation-bad');
+  const nextBase=+b.dataset.base;
+  const nextBaseName=b.dataset.name;
+  const changed=base!==nextBase || baseName!==nextBaseName;
   document.querySelectorAll('.base button').forEach(x=>x.classList.remove('selected'));
   b.classList.add('selected');
-  base=+b.dataset.base;
-  baseName=b.dataset.name;
+  base=nextBase;
+  baseName=nextBaseName;
   update();
+  if(changed){
+    gaEvent('base_product_select',{product_name:baseName});
+  }
 }
 function chg(id,d){
   cnt[id]=Math.max(0,cnt[id]+d);
@@ -434,7 +440,8 @@ function copyApp(){
   const d=document.querySelector('[name=design]:checked').value;
   const desc=document.getElementById('desc').value.trim();
   const req=document.getElementById('request').value.trim();
-  const selected=opts.filter(o=>cnt[o[0]]>0).map(o=>{
+  const selectedOptions=opts.filter(o=>cnt[o[0]]>0);
+  const selected=selectedOptions.map(o=>{
     const qty=noQuantity.has(o[0])?'':(cnt[o[0]]>1?` × ${cnt[o[0]]}`:'');
     return `  - ${o[1]}${qty}: ${won(o[2]*cnt[o[0]])}`;
   }).join('\n') || '  - 없음';
@@ -442,14 +449,27 @@ function copyApp(){
   const characterData=d==='design'?desc:'문의창에 별도 첨부';
   const text=`[신청서]\n\n- 방송플랫폼/활동명: ${platform}\n- 캐릭터 디자인: ${characterDesign}\n- 캐릭터 자료: ${characterData}\n- 기타 요청사항: ${req||'없음'}\n\n[견적]\n\n- ${baseName} : ${won(base)}\n- 추가옵션\n${selected}\n\n-----------------------------\n\n예상 견적: ${won(calcTotal())}\n-----------------------------`;
 
+  const sendCopyEvent=()=>{
+    gaEvent('commission_form_copy',{
+      product_name:baseName,
+      selected_options:selectedOptions.map(o=>`${o[1]}${cnt[o[0]]>1?` × ${cnt[o[0]]}`:''}`).join(', ') || '없음',
+      option_count:selectedOptions.length,
+      value:calcTotal(),
+      currency:'KRW',
+      design_method:characterDesign
+    });
+  };
+
   if(navigator.clipboard && window.isSecureContext){
     navigator.clipboard.writeText(text).then(()=>{
       msg.textContent='견적 및 신청 내용이 복사되었습니다.';
       msg.className='msg';
+      sendCopyEvent();
     }).catch(()=>{
       if(copyTextFallback(text)){
         msg.textContent='견적 및 신청 내용이 복사되었습니다.';
         msg.className='msg';
+        sendCopyEvent();
       }else{
         msg.textContent='복사에 실패했습니다. 내용을 직접 선택해 복사해주세요.';
         msg.className='msg error';
@@ -459,12 +479,14 @@ function copyApp(){
     if(copyTextFallback(text)){
       msg.textContent='견적 및 신청 내용이 복사되었습니다.';
       msg.className='msg';
+      sendCopyEvent();
     }else{
       msg.textContent='복사에 실패했습니다. 내용을 직접 선택해 복사해주세요.';
       msg.className='msg error';
     }
   }
 }
+
 document.querySelectorAll('#designRadio .choice').forEach(choice=>{
   choice.addEventListener('click',()=>{
     const input=choice.querySelector('input[type=radio]');
@@ -496,6 +518,7 @@ function openPortfolioLightbox(){
   document.getElementById('lightboxImage').src=src;
   document.getElementById('portfolioLightbox').classList.add('open');
   document.getElementById('portfolioLightbox').setAttribute('aria-hidden','false');
+  gaEvent('portfolio_view',{portfolio_index:portfolioIndex+1,portfolio_count:portfolioImages.length});
 }
 function closePortfolioLightbox(e){
   if(e && e.target && e.target.id!=='portfolioLightbox' && !e.target.classList.contains('lightbox-close')) return;
@@ -507,6 +530,41 @@ document.addEventListener('keydown',e=>{
 });
 refreshPortfolio();
 
+
+(function setupSectionTracking(){
+  const sections={
+    guide:'안내사항',
+    schedule:'예약현황',
+    process:'작업진행순서',
+    portfolio:'포트폴리오',
+    price:'견적 및 신청서 작성'
+  };
+  const seen=new Set();
+  const trackSection=(el)=>{
+    if(!el || seen.has(el.id)) return;
+    seen.add(el.id);
+    gaEvent('section_view',{section_name:sections[el.id] || el.id});
+  };
+  if('IntersectionObserver' in window){
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          trackSection(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.2});
+    Object.keys(sections).forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) observer.observe(el);
+    });
+  }else{
+    Object.keys(sections).forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) trackSection(el);
+    });
+  }
+})();
 
 function getFrameHeight(){
   const body=document.body;
