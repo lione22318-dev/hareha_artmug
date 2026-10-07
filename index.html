@@ -1,16 +1,28 @@
 <!doctype html>
 <html lang="ko"><head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G9D8NZB314"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  window.gtag = window.gtag || function(){dataLayer.push(arguments);};
 
-  gtag('config', 'G-G9D8NZB314');
+  if (window.top === window.self) {
+    var gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-G9D8NZB314';
+    document.head.appendChild(gaScript);
+    gtag('js', new Date());
+    gtag('config', 'G-G9D8NZB314');
+  }
 
   function gaEvent(name, params){
-    if (typeof gtag === 'function') gtag('event', name, params || {});
+    if (window.parent !== window) {
+      window.parent.postMessage({
+        type: 'hareha-ga4-event',
+        name: name,
+        params: params || {}
+      }, '*');
+    } else {
+      gtag('event', name, params || {});
+    }
   }
 </script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>일러스트 커미션 페이지</title>
