@@ -13,6 +13,16 @@
     gtag('config', 'G-G9D8NZB314');
   }
 
+  // Artmug scroll position is maintained by the parent page because focus
+  // changes inside a cross-origin iframe can move the parent's viewport.
+  let harehaParentScrollY = 0;
+  window.addEventListener('message', function(e){
+    if (e.source !== window.parent || !e.data) return;
+    if (e.data.type === 'hareha-parent-scroll' && Number.isFinite(Number(e.data.y))) {
+      harehaParentScrollY = Number(e.data.y);
+    }
+  });
+
   function gaEvent(name, params){
     if (window.parent !== window) {
       window.parent.postMessage({
@@ -430,10 +440,11 @@ function validateApp(){
   return true;
 }
 function copyTextFallback(text){
-  // Clipboard API may be blocked inside Artmug's iframe. Use a fallback
-  // that does not scroll the parent page when the temporary textarea gets focus.
+  // Copying via a temporary textarea may shift the Artmug parent viewport.
+  // Save the last scroll position sent by the parent and ask it to restore it.
   const savedX=window.scrollX || 0;
   const savedY=window.scrollY || 0;
+  const savedParentY=harehaParentScrollY;
   const ta=document.createElement('textarea');
   ta.value=text;
   ta.setAttribute('readonly','');
@@ -453,6 +464,13 @@ function copyTextFallback(text){
   try{ ta.blur(); }catch(e){}
   document.body.removeChild(ta);
   requestAnimationFrame(()=>window.scrollTo(savedX,savedY));
+  if(window.parent !== window){
+    const restore={type:'hareha-copy-restore-scroll',y:savedParentY};
+    window.parent.postMessage(restore,'*');
+    // Some embedded browsers apply the focus-induced scroll on a later frame.
+    setTimeout(()=>window.parent.postMessage(restore,'*'),60);
+    setTimeout(()=>window.parent.postMessage(restore,'*'),220);
+  }
   return ok;
 }
 
