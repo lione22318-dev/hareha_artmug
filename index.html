@@ -561,7 +561,11 @@ document.querySelectorAll('#designRadio .choice').forEach(choice=>{
 document.getElementById('platform').addEventListener('input',()=>document.getElementById('platform').closest('.field').classList.remove('invalid'));
 document.getElementById('desc').addEventListener('input',()=>{if(document.getElementById('desc').value.trim()){document.getElementById('characterField').classList.remove('invalid');document.getElementById('designText').classList.remove('invalid');}});
 document.getElementById('request').addEventListener('input',()=>{msg.textContent='';msg.className='msg'});
-const portfolioImages=['images/portfolio1.jpg'];
+const portfolioImages = [
+  'images/portfolio1.jpg',
+  'images/portfolio2.jpg',
+  'images/portfolio3.jpg'
+];
 let portfolioIndex=0;
 function refreshPortfolio(){
   const img=document.getElementById('portfolioImage');
