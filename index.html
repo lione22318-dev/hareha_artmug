@@ -146,6 +146,26 @@ section{scroll-margin-top:30px;margin-top:42px}
 .estimate strong{font-size:25px}
 .business{color:var(--muted);font-size:12px}
 
+/* COLLABORATION */
+.collab-grid{display:grid;grid-template-columns:repeat(2,minmax(0,360px));justify-content:center;gap:28px;max-width:748px;margin:0 auto}
+.collab-card{width:100%;max-width:360px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.collab-card:only-child{grid-column:1/-1;justify-self:center;width:min(100%,360px)}
+.collab-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#E8EEF5;cursor:pointer;outline-offset:-3px}
+.collab-media video{display:block;width:100%;height:100%;object-fit:cover;background:#E8EEF5}
+.collab-preview-label{position:absolute;right:10px;bottom:10px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.94);color:var(--accent);font-size:11px;line-height:1.3;transition:opacity .18s ease;pointer-events:none}
+.collab-preview-label .mobile-label{display:none}
+.collab-media.is-playing .collab-preview-label{opacity:0}
+.collab-media.video-error:after{content:"영상 파일을 videos/collab1.mp4 경로에 업로드해주세요.";position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted);font-size:12px;background:#E8EEF5}
+.collab-info{padding:13px 15px 16px}
+.collab-role{margin:0;color:#6F6A6D;font-size:12px;line-height:1.4}
+.collab-name-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:1px}
+.collab-name{margin:0;font-size:20px;line-height:1.35;font-weight:700!important;overflow-wrap:anywhere}
+.collab-page-link{flex:none;color:var(--accent);font-size:13px;line-height:1.4;text-decoration:none;white-space:nowrap}
+.collab-page-link:hover{color:#324A67}
+.collab-divider{border:0;border-top:1px solid var(--line);margin:8px 0 9px}
+.collab-benefits{display:grid;gap:2px}
+.collab-benefits p{margin:0;font-size:13px;line-height:1.55;color:var(--text)}
+
 /* PORTFOLIO */
 .portbox{padding:20px}
 .stage{min-height:580px;background:#E7E7E7;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -254,6 +274,17 @@ footer small{font-size:11px}
   .arrow{width:32px;height:32px}
   .pcnt{font-size:11px}
 
+  .collab-grid{grid-template-columns:minmax(0,360px);gap:20px;width:100%}
+  .collab-card{max-width:360px}
+  .collab-info{padding:12px 13px 14px}
+  .collab-role{font-size:11px}
+  .collab-name{font-size:18px}
+  .collab-page-link{font-size:12px}
+  .collab-preview-label{font-size:10px;padding:6px 9px;right:8px;bottom:8px}
+  .collab-preview-label .desktop-label{display:none}
+  .collab-preview-label .mobile-label{display:inline}
+  .collab-benefits p{font-size:12px}
+
   .base,.options{grid-template-columns:1fr}
   .subtitle{font-size:16px;margin:0 0 10px;gap:8px}
   .subtitle:before{width:3px;height:15px}
@@ -303,7 +334,7 @@ footer small{font-size:11px}
 <article class="card guide"><h3>작업 관련 안내</h3><ul><li>작업 기간은 최대 1개월이며 작업 내용에 따라 달라질 수 있습니다.</li><li>리깅이 포함되지 않은 파츠분리 일러스트입니다.</li></ul></article>
 <article class="card guide"><h3>저작권 및 이용 안내</h3><ul><li>저작권은 작가에게 귀속됩니다.</li><li>2차 수정 및 무단 배포를 금지합니다.</li><li>작업물을 AI 학습·생성·변형 등의 용도로 사용하는 것을 금지합니다. 저작권 구매 여부와 관계없이 적용됩니다.</li></ul></article>
 <article class="card guide"><h3>포트폴리오 사용</h3><p>모든 작업물은 포트폴리오로 사용될 수 있습니다. 비공개를 원하시는 경우 비공개 옵션을 추가해주세요.</p></article>
-<article class="card guide guide-refund"><h3>결제 및 환불 안내</h3><ul><li>예약금 10만원이 발생하며, 취소 시에도 환불되지 않습니다.</li><li>디자인 및 스케치 작업 단계 중 70% 환불됩니다.</li><li>디자인 및 스케치 단계 이후 환불이 불가합니다.</li></ul></article>
+<article class="card guide guide-refund"><h3>결제 및 환불 안내</h3><ul><li>예약금 10만원이 발생하며, 취소 시에도 환불되지 않습니다.</li><li>디자인 및 러프 작업 단계 중 70% 환불됩니다.</li><li>선화 단계 이후 환불이 불가합니다.</li></ul></article>
 <article class="card guide guide-usage"><h3>사용 범위 안내</h3><table class="usage-table" aria-label="사용 범위 안내"><thead><tr><th>범위</th><th>저작권 구매 X</th><th>저작권 구매</th></tr></thead><tbody><tr><td>스트리밍</td><td><span class="usage-yes">○</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>유튜브 업로드</td><td><span class="usage-yes">○</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>굿즈 제작 및 판매</td><td><span class="usage-no">×</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>일러스트 기반 3D 모델 제작</td><td><span class="usage-no">×</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>타 작가 의뢰<span class="usage-sub">(신의상, 신 헤어 등)</span></td><td><span class="usage-no">×</span></td><td><span class="usage-yes">○</span></td></tr><tr><td>모델 양도<span class="usage-sub">*양도 전 문의 바랍니다.</span></td><td><span class="usage-no">×</span></td><td><span class="usage-yes">○</span></td></tr></tbody></table></article>
 </div></div></section>
 <section id="schedule"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">02</span>예약현황</h2><p class="note">예약은 입금 순으로 확정됩니다.</p></div><div class="schedule-shell"><article class="card month"><div class="month-name">10월</div><div class="status available"><span class="dot"></span>예약 가능</div></article><article class="card month"><div class="month-name">11월</div><div class="status available"><span class="dot"></span>예약 가능</div></article><article class="card month"><div class="month-name">12월</div><div class="status available"><span class="dot"></span>예약 가능</div></article></div></div></section>
@@ -314,7 +345,22 @@ footer small{font-size:11px}
 
 <div class="lightbox" id="portfolioLightbox" aria-hidden="true" onclick="closePortfolioLightbox(event)"><button type="button" class="lightbox-close" aria-label="닫기">×</button><img id="lightboxImage" src="" alt="확대 포트폴리오 이미지"></div>
 
-<section id="price"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">05</span>견적 및 신청서 작성</h2><p class="note">신청 내용을 함께 작성한 뒤 복사하여 아트머그 문의창으로 문의해주세요.</p></div><div class="card pricebox"><h3 class="subtitle">기본 옵션</h3><div class="base"><button data-base="1200000" data-name="전신 일러스트" onclick="selectBase(this)"><b>전신 일러스트</b><span class="price">1,200,000원</span></button><button data-base="800000" data-name="흉상 일러스트" onclick="selectBase(this)"><b>흉상 일러스트</b><span class="price">800,000원</span></button></div><h3 class="subtitle" style="margin-top:30px">추가 옵션</h3><div class="options" id="priceOptions"></div><div class="estimate"><small>선택한 옵션 기준 예상 견적</small><strong id="total">0원</strong></div><p class="business">※ 기업세 작업은 단가 및 저작권 이용 범위가 달라질 수 있으므로 별도 문의 바랍니다.</p>
+<section id="collaboration"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">05</span>협업 작가</h2></div><div class="collab-grid">
+<article class="collab-card">
+  <div class="collab-media" id="collabMedia1" role="button" tabindex="0" aria-label="리깅 미리보기 영상 재생 또는 일시정지">
+    <video id="collabVideo1" muted loop playsinline preload="metadata" aria-label="협업 작가 Live2D 리깅 미리보기 영상"><source src="videos/collab1.mp4" type="video/mp4"></video>
+    <div class="collab-preview-label" aria-hidden="true"><span class="desktop-label">마우스를 올리면 재생</span><span class="mobile-label">탭하면 재생</span></div>
+  </div>
+  <div class="collab-info">
+    <p class="collab-role">Live2D Rigger</p>
+    <div class="collab-name-row"><h3 class="collab-name">작가 이름</h3><a class="collab-page-link" href="https://artmug.kr/" target="_blank" rel="noopener noreferrer">↗ 작가 페이지</a></div>
+    <hr class="collab-divider">
+    <div class="collab-benefits"><p>리깅 5만원 할인 · 표정 2종</p><p>일러스트 5만원 할인 · 표정 3종 추가</p></div>
+  </div>
+</article>
+</div></div></section>
+
+<section id="price"><div class="section-card"><div class="head"><h2 class="title"><span class="section-number">06</span>견적 및 신청서 작성</h2><p class="note">신청 내용을 함께 작성한 뒤 복사하여 아트머그 문의창으로 문의해주세요.</p></div><div class="card pricebox"><h3 class="subtitle">기본 옵션</h3><div class="base"><button data-base="1200000" data-name="전신 일러스트" onclick="selectBase(this)"><b>전신 일러스트</b><span class="price">1,200,000원</span></button><button data-base="800000" data-name="흉상 일러스트" onclick="selectBase(this)"><b>흉상 일러스트</b><span class="price">800,000원</span></button></div><h3 class="subtitle" style="margin-top:30px">추가 옵션</h3><div class="options" id="priceOptions"></div><div class="estimate"><small>선택한 옵션 기준 예상 견적</small><strong id="total">0원</strong></div><p class="business">※ 기업세 작업은 단가 및 저작권 이용 범위가 달라질 수 있으므로 별도 문의 바랍니다.</p>
 <div class="apply-divider"></div>
 <div class="apply-area">
 <div class="field"><label>방송 플랫폼 / 활동명</label><input id="platform" type="text" placeholder="예: 치지직 / 닉네임"></div>
@@ -326,6 +372,27 @@ footer small{font-size:11px}
 
 <footer><small>© 2026 HAREHA. All Rights Reserved.</small></footer></main>
 <script>
+(function setupCollabVideo(){
+  const media=document.getElementById('collabMedia1');
+  const video=document.getElementById('collabVideo1');
+  if(!media||!video)return;
+  const hasHover=()=>window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const play=()=>video.play().then(()=>media.classList.add('is-playing')).catch(()=>{});
+  const stopAndReset=()=>{video.pause();try{video.currentTime=0}catch(e){}media.classList.remove('is-playing')};
+  media.addEventListener('pointerenter',()=>{if(hasHover())play()});
+  media.addEventListener('pointerleave',()=>{if(hasHover())stopAndReset()});
+  media.addEventListener('click',()=>{
+    if(hasHover())return;
+    if(video.paused)play();else{video.pause();media.classList.remove('is-playing')}
+  });
+  media.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();if(video.paused)play();else{video.pause();media.classList.remove('is-playing')}}
+  });
+  video.addEventListener('pause',()=>media.classList.remove('is-playing'));
+  video.addEventListener('play',()=>media.classList.add('is-playing'));
+  video.addEventListener('error',()=>{media.classList.add('video-error');});
+})();
+
 const opts=[
   ['hair','헤어 추가',300000,'새로운 헤어스타일을 추가할 수 있습니다.'],
   ['hairBack','헤어 추가 (뒷머리만)',100000,'뒷머리만 추가하고 싶은 경우 선택해주세요.'],
@@ -602,6 +669,7 @@ refreshPortfolio();
     schedule:'예약현황',
     process:'작업진행순서',
     portfolio:'포트폴리오',
+    collaboration:'협업 작가',
     price:'견적 및 신청서 작성'
   };
   const seen=new Set();
